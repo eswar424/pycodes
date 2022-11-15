@@ -1,0 +1,5 @@
+Invoiceno,Stockcode,Descripition,Quantity,InvoiceDate,UnitPrice,CustomerID,country
+536563,85123A,dffff,1,2/4/2022,6,123,india
+536563,85123A,dffff,3,,7,123,india
+536563,85123A,dffff,3,,4,123,india
+536563,85123A,dffff,4,,8,123,india

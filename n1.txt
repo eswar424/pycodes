@@ -1,0 +1,5 @@
+data={'country':['belgium','india','brazil'],
+'capital':['brussesls','new delhi','brasilia']
+'population':[11,123,234,567]}
+df=pd.DataFrame(data,colums=['country','capital','population'])
+print(df)
