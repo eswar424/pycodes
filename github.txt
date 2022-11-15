@@ -1,0 +1,587 @@
+import pandas as pd
+data = pd.read_csv("nba.csv", index_col="Name")
+first = data[["Age","College","Salary"]]
+print(first)
+==================================================
+import socket
+print(socket.gethostname())
+==================================================
+import os
+print(os.system("ipconfig"))
+==========================================
+import socket
+hostname = socket.gethostname()
+ipadd = socket.gethostbyname(hostname)
+print(ipadd)
+========================================================
+import os, ipaddress
+os.system('cls')# os.system will clear the console at the start of the execution
+while True:
+	ip = input("Enter ip address:")
+	try:
+		print(ipaddress.ip_address(ip))
+		print('IP valid')
+	except:
+		print('_'*50)
+		print('IP is not valid')
+	finally:
+		if ip == 'mango':
+			print('Script Finished')
+			break
+===================================================================================
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print(s)
+==========================================================================
+import socket
+s = socket.socket()
+print("Socket successfully created")
+port = 40674
+s.bind(('',port))
+print("socket binded to %s" %(port))
+s.listen(5)
+print("socket is listening")
+while True:
+	c,addr = s.accept()
+	print('Got connection from',addr)
+	c.send(b'Thank you for connecting')
+	c.close()
+===================================================================================
+import socket
+s = socket.socket()
+port = 40674
+s.connect(('127.0.0.1',port))
+print(s.recv(1024))
+s.close()
+========================================================================================
+import os
+with open("ip_list.txt") as file:
+	park = file.read()
+	park = park.splitlines()
+	print("{park} \n")
+for ip in park:
+    response = os.popen(f"ping {ip} ").read()
+    if("Request timed out."or"unreachable") in response:
+        print(response)
+        f = open("info_output.txt","a")
+        f.write(str(ip) + ' link is down'+'\n')
+        f.close()
+    else:
+        print(response)
+        f = open("info_output.txt","a")
+        f.write(str(ip) + ' link is up'+'\n')
+        f.close()
+        
+with open("info_output.txt") as file:
+    output = file.read()
+    f.close()
+    print(output)
+with open("info_output.txt","w") as file:
+    pass
+       
+        
+=================================================================
+import timeit
+# code snippet to be executed only once
+mysetup = "from math import sqrt"
+# code snippet whose execution time is to be measured
+mycode = '''
+def example():
+    mylist = [1,2,3,4]
+    for x in range(100):
+        mylist.append(sqrt(x))
+'''
+# timeit statement
+print (timeit.timeit(setup = mysetup,
+                     stmt = mycode,
+                     number = 100000))
+=====================================================================================
+import socket # for socket
+import sys
+
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print ("Socket successfully created")
+except socket.error as err:
+    print ("socket creation failed with error %s" %(err))
+
+# default port for socket
+port = 80
+
+try:
+    host_ip = socket.gethostbyname('www.google123.com')
+except socket.gaierror:
+
+# this means could not resolve the host
+    print ("there was an error resolving the host")
+    sys.exit()
+
+# connecting to the server
+s.connect((host_ip, port))
+
+
+print(host_ip)
+print ("the socket has successfully connected to google")
+======================================================================
+# import socket programming + multithreading library
+import socket
+
+# import thread module
+from _thread import *
+import threading
+
+print_lock = threading.Lock()
+
+# thread function
+def threaded(c):
+    while True:
+
+# data received from client
+        data = c.recv(1024)
+        if not data:
+            print('Bye')
+
+# lock released on exit
+        print_lock.release()
+        break
+
+# reverse the given string from client
+data = data[::-1]
+
+# send back reversed string to client
+c.send(data)
+
+# connection closed
+c.close()
+
+
+def Main():
+    host = ""
+
+# reserve a port on your computer
+# in our case it is 12345 but it
+# can be anything
+port = 12345
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((host, port))
+print("socket binded to port", port)
+
+# put the socket into listening mode
+s.listen(5)
+print("socket is listening")
+
+# a forever loop until client wants to exit
+while True:
+
+# establish connection with client
+    c, addr = s.accept()
+
+# lock acquired by client
+    print_lock.acquire()
+print('Connected to :', addr[0], ':', addr[1])
+
+# Start a new thread and return its identifier
+start_new_thread(threaded, (c,))
+s.close()
+
+
+if __name__ == '__main__':
+    Main()
+
+
+==========================================================================
+# Import socket module
+import socket
+
+def Main():
+# local host IP '127.0.0.1'
+host = '127.0.0.1'
+
+# Define the port on which you want to connect
+port = 12345
+
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
+# connect to server on local computer
+s.connect((host,port))
+
+# message you send to server
+message = "hello from my code"
+while True:
+
+# message sent to server
+s.send(message.encode('ascii'))
+
+# message received from server
+data = s.recv(1024)
+
+# print the received message
+# here it would be a reverse of sent message
+print('Received from the server :',str(data.decode('ascii')))
+
+# ask the client whether he wants to continue
+ans = input('\nDo you want to continue(y/n) :')
+if ans == 'y':
+continue
+else:
+break
+# close the connection
+s.close()
+
+if __name__ == '__main__':
+Main()
+==========================================================================
+from netmiko import ConnectHandler
+ 
+#First create the device object using a dictionary
+CSR = {
+    "device_type": "cisco_ios",
+    "ip": "sandbox-iosxe-latest-1.cisco.com",
+    "username": "developer",
+    "password": "C1sco12345",
+    "port":1400
+}
+ 
+# Next establish the SSH connection
+net_connect = ConnectHandler(**CSR)
+ 
+# Then send the command and print the output
+
+output = net_connect.send_command('show ip int brief')
+
+print (output)
+ 
+# Finally close the connection
+net_connect.disconnect()
+===============================================================================
+import pandas as pd
+data = pd.read_csv(r'C:\pythoncode\Gaints.csv')
+df = pd.DataFrame(data, columns=['CEO','Establishment'])
+print(df)
+=====================================================================
+import pandas as pd
+df = pd.read_excel(r'C:\pythoncode\companies.xlsx')
+print(df)
+==============================================================
+import pandas as pd
+data = pd.read_excel(r'C:\pythoncode\companies.xlsx')
+df = pd.DataFrame(data, columns=['CEO'])
+print(df)
+================================================================
+from openpyxl import Workbook
+wb = Workbook()
+ws = wb.active
+ws['A1']=42
+ws.append([1,2,3])
+import datetimews['A2'] = datetime.datetime.now()
+wb.save("sample.xlsx")
+====================================================
+import pandas as pd
+df = pd.read_csv('online-retail.csv')
+df.head()
+print(df)
+df['LinePrice'] = df['Quantity']*df['UnitPrice']
+df.head()
+print(df)
+
+df_customers = df.groupby('CustomerID').agg(
+                orders=('InvoiceNo', 'nunique'),
+                skus = ('StockCode','nunique'),
+                Quantity=('Quantity','sum'),
+                revenue = ('LinePrice','sum'),
+).reset_index()
+df_customers.head()
+print(df_customers)
+=============================================================================
+import pandas as pd
+import numpy as np
+data = np.array(['g', 'e', 'e', 'k', 's'])
+#providing an index
+s = pd.Series(data, index=[10, 11, 12, 13, 14])
+print(s)
+=============================================================================
+import pandas as pd
+data={'country':['Belgium','india','brazil'],
+'capital':['Bass','newdelhi','brasillia'],
+'population':[11234,34561,23456]}
+df = pd.DataFrame(data,columns=['country','capital','population','street'])
+print(df)
+=========================================================================
+import pandas as pd
+lst = ['geeks','for','geeks','is','portal','for','geeks']
+df = pd.DataFrame(lst)
+print(df)
+============================================================================
+import pandas as pd
+data = {'name':['tom','nick','jack','krish'], 'age':[20, 21, 19, 18]}
+df = pd.DataFrame(data)
+print(df)
+=========================================================================
+#SuperFastPython.com
+# example of using the queue with processes
+from time import sleep
+from random import random
+from multiprocessing import Process
+from multiprocessing import Queue
+ 
+# generate work
+def producer(queue):
+    print('Producer: Running', flush=True)
+    # generate work
+    for i in range(10):
+        # generate a value
+        value = random()
+        # block
+        sleep(value)
+        # add to the queue
+        queue.put(value)
+    # all done
+    queue.put(None)
+    print('Producer: Done', flush=True)
+ 
+# consume work
+def consumer(queue):
+    print('Consumer: Running', flush=True)
+    # consume work
+    while True:
+        # get a unit of work
+        item = queue.get()
+        # check for stop
+        if item is None:
+            break
+        # report
+        print(f'>got {item}', flush=True)
+    # all done
+    print('Consumer: Done', flush=True)
+ 
+# entry point
+if __name__ == '__main__':
+    # create the shared queue
+    queue = Queue()
+    # start the consumer
+    consumer_process = Process(target=consumer, args=(queue,))
+    consumer_process.start()
+    # start the producer
+    producer_process = Process(target=producer, args=(queue,))
+    producer_process.start()
+    # wait for all processes to finish
+    producer_process.join()
+    consumer_process.join()
+=====================================================================
+#import pandas as pd
+import pandas as pd
+#providing an index
+ser = pd.Series([3, -5, 7, 4], index=['a','b','c','d'])
+print(ser)
+s = pd.Series(data, index=[10, 11, 12, 13, 14])
+print(s)
+==============================================================
+import pandas as pd
+df = pd.read_csv(r'C:\pythoncode\gaints.csv')
+print(df)
+============================================================
+import multiprocessing
+import time
+#process class
+class Process(multiprocessing.Process):
+    def __int__(self,id):
+        super(Process, self).__init__()
+        self.id=id
+    def run(self):
+        time.sleep(1)
+        print("I'm the process with id: {}".format(self.id))
+if __name__ == '__main__':
+        p=Process(0)
+        p.start()
+        p.join()
+        p=Process(1) 
+        p.start()
+        p.join()
+=========================================================================
+import pdb
+def addition(a,b):
+    answer = a+b
+    return answer
+pdb.set_trace()
+x = input("enter a number:")
+y = input("enter a number:")
+sum = addition(x,y)
+print(sum)
+
+==============================================================
+import pdb
+def addition(a,b):
+    answer = a+b
+    return answer
+pdb.set_trace()
+x = input("enter a number:")
+y = input("enter a number:")
+sum = addition(x,y)
+print(sum)
+
+=================================================================
+a = 20
+b = 10
+s = 0
+for i in range(a):
+    #this line raise the zeroDivision Error
+    s += a / b
+    b-= 1
+=====================================================================
+import multiprocessing
+import time
+def square(x):
+	return x * x
+if __name__ =='__main__':
+    pool=multiprocessing.Pool()
+    pool=multiprocessing.Pool(processes=4)
+    inputs = [0, 1, 2, 3, 4]
+    outputs=pool.map(square, inputs)
+    print("Input: {}".format(inputs))
+    print("Output: {}".format(outputs))
+=========================================================================
+import pymysql
+db=pymysql.connect(host='localhost',
+			            user='root',
+			            password='admin',
+			            database='demo1',
+			            cursorclass=pymysql.cursors.DictCursor)
+cursor=db.cursor()
+cursor.execute("SELECT VERSION()")
+
+
+data = cursor.fetchone()
+print("Database Version : %s" %data)
+
+
+===============================================================================
+from threading import Thread
+import os
+import threading
+
+import time
+# A class that extends the Thread class
+class FileLoaderThread(Thread):
+   def __init__(self, fileName, encryptionType):
+       # Call the Thread class's init function
+       Thread.__init__(self)
+       self.fileName = fileName
+       self.encryptionType = encryptionType
+   # Override the run(0 function of Thread class
+   def run(self):
+       print('Started loading contents from file : ', self.fileName)
+       print('Encryption Type : ', self.encryptionType)
+       for i in range(5):
+           print('Loading ... ')
+           time.sleep(1)
+       print('Finished loading contents from file : ', self.fileName)
+def main():
+   # Create an object of Thread
+   th = FileLoaderThread('users.csv','ABC')
+   # start the thread
+   th.start()
+   # print some logs in main thread
+   for i in range(5):
+       print('Hi from Main Function')
+       time.sleep(1)
+   # wait for thread to finish
+   th.join()
+if __name__ == '__main__':
+   main()
+print(os.getpid())
+print(threading.get_ident())
+print(threading.main_thread().name)
+print(threading.current_thread().name)
+
+=============================================================================
+from threading import Thread
+from threading import Event
+import time
+#Event-SET/NO SET
+#Join-with parameters
+#
+
+class Connection(Thread):
+
+    StopEvent = 0
+
+    def __init__(self,args):
+        Thread.__init__(self)
+        self.StopEvent = args
+
+    # The run method is overridden to define
+    # the thread body
+    def run(self):
+
+        for i in range(1,10):
+            if(self.StopEvent.wait(0)):
+                print ("Asked to stop")
+                break;
+
+            print("The Child Thread sleep count is %d"%(i))
+            time.sleep(3)
+
+        print ("A Child Thread is exiting")
+
+Stop = Event()
+Connection = Connection(Stop)
+Connection.start()
+print("Main thread is starting to wait for 5 seconds")
+
+Connection.join(5)
+print("Main thread says : I cant't wait for more than 5 \
+seconds for the child thread;\n Will ask child thread to stop")
+
+# ask(signal) the child thread to stop
+Stop.set()
+
+# wait for the child thread to stop
+Connection.join()
+
+print("Main thread says : Now I do something else to compensate\
+the child thread task and exit")
+=============================================================
+import threading
+def print_cube(num):
+    # function to print cube of given num
+    print("Cube: {}" .format(num * num * num))
+def print_square(num):
+    # function to print square of given num
+    print("Square: {}" .format(num * num))
+if __name__ =="__main__":
+    # creating thread
+    t1 = threading.Thread(target=print_square, args=(10,))
+    t2 = threading.Thread(target=print_cube, args=(10,))
+
+    # starting thread 1
+    t1.start()
+    # starting thread 2
+    t2.start()
+
+    # wait until thread 1 is completely executed
+    t1.join()
+    # wait until thread 2 is completely executed
+    t2.join()
+
+    # both threads completely executed
+    print("Done!")
+
+from time import sleep
+from threading import Thread
+def task():
+    sleep(1)
+    print("this is from another trhread")
+thread=Thread(target=task)
+thread.start()
+print("waiting for the thread...")
+thread.join()
+
+======================================================================
+
+
+
+
+
+
+
+
